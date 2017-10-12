@@ -1,0 +1,30 @@
+.hero {
+  min-height: 59px;
+  padding: 174px 0;
+  text-align: center;
+  color: #fff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #ccc;
+
+    &__about {
+    font-family: $ff-main-bold;
+    font-size: 3rem;
+    line-height: 1;
+
+    &__title {
+      margin-top: 0;
+      margin-bottom: 27px;
+      font-family: $ff-main-light;
+      font-weight: normal;
+    }
+  }
+   .button--text-uppercase {
+      padding: 21px 41px;
+      border-radius: 9px;
+      font-size: 1.5rem;
+      letter-spacing: 1px
+    }
+}
+
