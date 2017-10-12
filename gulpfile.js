@@ -6,6 +6,9 @@ var sass = require('gulp-sass');
 var spritesmith = require('gulp.spritesmith');
 var rimraf = require('rimraf');
 var rename = require("gulp-rename");
+var autoprefixer = require('gulp-autoprefixer');
+var sourcemaps = require('gulp-sourcemaps');
+
 
 				// SERVER 
 gulp.task('server', function() {
@@ -21,41 +24,45 @@ gulp.task('server', function() {
 
 			// PUG COMPILE
 gulp.task('templates:compile', function buildHTML() {
-  return gulp.src('src/template/index.pug')/**/
+  return gulp.src('src/template/index.pug')
   .pipe(pug({
     pretty: true
   }))
   .pipe(gulp.dest('app'))
 });
 
-		// SASS COMPILE
-gulp.task('sass', function () {
-  return gulp.src('src/styles/main.sass')
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(rename('main.min.css'))
-    .pipe(gulp.dest('app/css'))
+		//CSS BUILD
+gulp.task('css:build', function () {
+    return gulp.src('src/styles/main.scss')
+    
+      .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+      .pipe(autoprefixer({
+      browsers: ['last 2 versions'], 
+      cascade: false
+      }))
+      .pipe(rename('main.min.css'))
+    
+    .pipe(gulp.dest('app/css'));
 });
 
+
+
 		// SPRITE
-gulp.task('sprite', function () {
+gulp.task('sprite', function (cb) {
   var spriteData = gulp.src('src/img/icons/*.png').pipe(spritesmith({
     imgName: 'sprite.png',
     imgPath: '../img/sprite.png',
-    cssName: 'sprite.sass'
+    cssName: 'sprite.scss'
   }));
   spriteData.img.pipe(gulp.dest('app/img/'));
-  spriteData.css.pipe(gulp.dest('src/styles/global/'))
+  spriteData.css.pipe(gulp.dest('src/styles/global/'));
   cb();
 });
  
-gulp.task('sass:watch', function () {
-  gulp.watch('./sass/**/*.scss', ['sass']);
-});
-
 
 //DELETE
-gulp.task('clean', function (cb) {
-   rimraf('app', cb);
+gulp.task('clean', function del(cb) {
+  return rimraf('app', cb);
 });
 
 //COPY FONTS
@@ -76,12 +83,12 @@ gulp.task('copy', gulp.parallel('copy:fonts', 'copy:images'))
 //WATCHERS
 gulp.task('watch', function(){
 	gulp.watch('src/template/**/*.pug', gulp.series('templates:compile'));
-		gulp.watch('src/styles/**/*.sass', gulp.series('sass'))
+		gulp.watch('src/styles/**/*.scss', gulp.series('css:build'))
 })
 
 gulp.task('default', gulp.series(
 	'clean',
-	gulp.parallel('templates:compile', 'sass', /*'sprite',*/ 'copy'),
+	gulp.parallel('templates:compile', 'css:build', 'sprite', 'copy'),
 	gulp.parallel('watch', 'server')
 	)
 );
