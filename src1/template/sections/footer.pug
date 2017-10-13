@@ -1,0 +1,19 @@
+- var linkItems = ['facebook', 'twitter', 'google', 'linkedin']
+- var linkUrls = ['facebook.com', 'twitter.com', 'google.com', 'linkedin.com']
+
+footer.footer
+
+  .footer__top
+    .container
+      .footer__title Get in touch
+        .footer__links
+          each item, index in linkItems
+            a.footer__social(href="http://" + linkUrls[index] target="_blank")
+              i(class="fa fa-" + item aria-hidden='true')
+
+      .footer__text Subscribe to our newsletter to stay update
+      form(action="#" method="post")
+        .footer__field: input.footer__input(type="email" placeholder="Email Adress")
+        button(type="submit").button Subscribe
+  .footer__bottom
+    .footer__copy &copy; 2017 All Rights Reserved
