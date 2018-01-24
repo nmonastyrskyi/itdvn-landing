@@ -89,16 +89,16 @@
   }
 
   &__input {
-    width: 76%;
+    width: 100%;
     padding: 15px 30px;
     border: 1px solid #d8d8d8;
     border-radius: 3px;
     font-size: 0.875rem;
     margin: auto auto 8px auto;
+    @media only screen and (max-width: 480px) {
+      font-size: 0.735rem;
+    }
 
-     &:focus {
-      box-shadow: 0 8px 1px rgba(0,0,0, 0.5)
-     }
   }
   
 }
