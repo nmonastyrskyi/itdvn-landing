@@ -5,11 +5,35 @@
   }
 
   &__bottom {
+    @media screen and (max-width: 1000px) {
+      flex-direction: column;
+    }
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
     padding: 41px 0 32px;
+    
+    
+    .button {
+      @media screen and (max-width: 1080px) {
+        margin-right: 15px;
+      }
+      @media screen and (max-width: 1000px) {
+      margin-top: 15px;
+    }
+    .logo {
+
+       @media screen and (max-width: 1080px) {
+        margin-left: 15px;
+      }
+       @media screen and (max-width: 1000px) {
+      margin-left: 0;
+      margin-bottom: 15px;
+    }
+
+    }
+    }
   }
 }
 

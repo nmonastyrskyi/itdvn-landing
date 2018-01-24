@@ -13,9 +13,25 @@
     border-right: 5px;
     box-shadow:  -1px -1px 10px 1px rgba(214,214,214,1);
     color: $gray;
+    display: flex;
+    flex-direction: row;
     background-color: #fff;
-
-    &:nth-child(2n) {
+    @media screen and (max-width: 740px) {
+      flex-wrap: wrap;
+      justify-content: center
+      // flex-direction: column;
+     }
+    .approach__text{
+       @media screen and (max-width: 740px) {
+        padding: 30px 0;
+        .approach__title {
+          margin-left: 50%;
+          position: relative;
+          transform: translateX(-50%)
+        }
+       }
+    }
+    .approach__item:nth-child(2n) {
       display: flex;
       flex-direction: row-reverse;
       text-align: right;
@@ -23,6 +39,11 @@
       .approach__text{
         
         padding: 70px 90px;
+        @media screen and (max-width: 1000px) {
+          padding: 20px 25px;
+          margin: 20px 80px 0 0 ;
+
+        }
       }
       .approach__step{
         right: auto;
@@ -30,6 +51,8 @@
       }
     }
   }
+
+
 
   &__picture {
     display: block;
@@ -41,7 +64,9 @@
     vertical-align: top;
     width: 64%;
     padding: 70px 70px 55px 90px;
-  }
+    }
+
+    
 
   &__step {
     @include centererY();
@@ -55,6 +80,10 @@
     font-size: 1.25rem;
     background-color: $red;
     color: #fff;
+    @media screen and (max-width: 480px) {
+              @include centererX()
+              top: 0
+         }
 
     &:before {
       content: counter(count);
